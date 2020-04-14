@@ -16,7 +16,7 @@
 				padding: 30px 40px 30px 40px;
 				text-align: left;
 				background-color: #EEE;
-				margin-top: 100px;
+				margin-top: 50px;
 				width: 800px;
 				min-height: 400px;
 				border-radius: 40px;
@@ -31,19 +31,88 @@
 			#text {
 				padding: 0 40px 0 40px;
 			}
+			#sidebar {
+				display: none;
+				float: right;
+				width: 300px;
+				background-color: #FAFAFA;
+				margin-left: 40px;
+				margin-bottom: 10px;
+				padding: 8px;
+				border-radius: 4px;
+				border-color: #888;
+				border-style: outset;
+				border-width: 4px;
+			}
+			#sidebar_header {
+				font-weight: bold;
+				text-align: center;
+				margin-bottom: 10px;
+			}
+			.sidebar_row {
+				display: flow-root;
+				margin-bottom: 5px;
+			}
+			.sidebar_row_left {
+				float: left;
+				font-weight: bold;
+			}
+			.sidebar_row_right {
+				float: right;
+				text-align: right;
+			}
 		</style>
 		<!-- Populate article -->
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
 		<script type="text/javascript">
 			function getQueryStringValue(key) {  
 			  return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));  
-			}  
+			}
 			var client = new XMLHttpRequest();
 			client.open('GET', getQueryStringValue("article") + ".md");
 			client.onreadystatechange = function() {
+			  if (client.readyState != XMLHttpRequest.DONE) {
+				return;
+			  }
+			  var md = client.responseText;
+			  // Find JSON payload in markdown.
+			  var i = 1;
+			  var braces = 1;
+			  while (braces > 0) {
+			  	if (md.charAt(i) == '{') {
+			  		braces++;
+			  	} else if (md.charAt(i) == '}') {
+			  		braces--;
+			  	}
+			  	i++;
+			  }
+			  var json = JSON.parse(md.substring(0, i));
+			  console.log(json);
+			  md = md.substring(i);
+			  document.title = "Pantheon Wiki: " + json["title"];
+			  document.getElementById("title").innerHTML = json["title"];
 			  var converter = new showdown.Converter({noHeaderId: true, headerLevelStart: 2, simpleLineBreaks: true, parseImgDimensions: true});
-			  document.getElementById("text").innerHTML = converter.makeHtml(client.responseText);
-			  document.title = "Pantheon Wiki: " + client.responseText.substr(2, client.responseText.indexOf("\n") - 2);
+			  document.getElementById("text").innerHTML = converter.makeHtml(md);
+			  if ("sidebarHeader" in json) {
+				var sidebar = document.getElementById("sidebar");
+				sidebar.style.display = "block";
+				console.log(sidebar.firstChild);
+				sidebar.firstChild.innerHTML = json["sidebarHeader"];
+				var sidebarRowJSON = json["sidebarRows"];
+				for (var key in sidebarRowJSON) {
+					var sidebarRow = document.createElement("div");
+					sidebarRow.className = "sidebar_row";
+					var rowLeft = document.createElement("div");
+					rowLeft.className = "sidebar_row_left";
+					rowLeft.innerHTML = key;
+					var rowRight = document.createElement("div");
+					rowRight.className = "sidebar_row_right";
+					rowRight.innerHTML = Array.isArray(sidebarRowJSON[key]) ? sidebarRowJSON[key].join("<br/>") : sidebarRowJSON[key];
+					sidebarRow.appendChild(rowLeft);
+					sidebarRow.appendChild(rowRight);
+					sidebar.appendChild(sidebarRow);
+				}
+			  }
 			}
 			client.onerror = function() {
 			  window.location.href = "?article=test";
@@ -54,12 +123,14 @@
 	<body>
 		<div id="wrapper">
 			<div id="contents">
-				<div id="title">
-					Pospathiakel
+				<div id="sidebar">
+					<div id="sidebar_header">Sidebar Header</div>
 				</div>
-				<div id="text" />
+				<div id="title">
+					Article Title
+				</div>
+				<div id="text"></div>
 			</div>
 		</div>
 	</body>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
 </html>
