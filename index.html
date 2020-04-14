@@ -70,7 +70,7 @@
 			}
 			function loadArticle() {
 				if (!new URL(window.location.href).searchParams.get('article')) {
-					window.location.href = "index.html?article=index";
+					window.location.href = "index.html?article=home";
 					return;
 				}
 				var client = new XMLHttpRequest();
@@ -95,7 +95,7 @@
 				  md = md.substring(i);
 				  document.title = "Pantheon Wiki: " + json["title"];
 				  document.getElementById("title").innerHTML = json["title"];
-				  
+				  // Form the sidebar, if needed.
 				  if ("sidebarHeader" in json) {
 					var sidebar = document.getElementById("sidebar");
 					sidebar.style.display = "block";
@@ -115,16 +115,18 @@
 						sidebar.appendChild(sidebarRow);
 					}
 				  }
-
+				  // Format to pure markdown and render.
+				  // Wikilinks.
 				  md = md.replace(/(\[\[.+\]\])/g, function(match) {
 					var article = match.substring(2, match.length - 2);
 					return `[${article}](?article=${article.toLowerCase()})`;
 				  });
+				  // Render.
 				  var converter = new showdown.Converter({noHeaderId: true, headerLevelStart: 2, simpleLineBreaks: true, parseImgDimensions: true});
 				  document.getElementById("text").innerHTML = converter.makeHtml(md);
 				}
 				client.onerror = function() {
-				  window.location.href = "?article=index";
+				  window.location.href = "?article=home";
 				}
 				client.send();
 			}
