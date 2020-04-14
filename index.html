@@ -13,13 +13,12 @@
 			#wrapper { text-align: center; }
 			#contents {
 				display: inline-block;
-				padding: 30px 40px 30px 40px;
+				padding: 30px 40px 20px 40px;
 				text-align: left;
 				background-color: #EEE;
 				margin-top: 50px;
 				width: 800px;
-				min-height: 400px;
-				border-radius: 40px;
+				border-radius: 30px;
 				border-color: #444;
 				border-style: solid;
 				border-width: 6px;
@@ -37,11 +36,10 @@
 				width: 300px;
 				background-color: #FAFAFA;
 				margin-left: 40px;
-				margin-bottom: 10px;
-				padding: 8px;
+				padding: 8px 15px;
 				border-radius: 4px;
 				border-color: #888;
-				border-style: outset;
+				border-style: groove;
 				border-width: 4px;
 			}
 			#sidebar_header {
@@ -68,56 +66,64 @@
 			function getQueryStringValue(key) {  
 			  return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));  
 			}
-			var client = new XMLHttpRequest();
-			client.open('GET', getQueryStringValue("article") + ".md");
-			client.onreadystatechange = function() {
-			  if (client.readyState != XMLHttpRequest.DONE) {
-				return;
-			  }
-			  var md = client.responseText;
-			  // Find JSON payload in markdown.
-			  var i = 1;
-			  var braces = 1;
-			  while (braces > 0) {
-			  	if (md.charAt(i) == '{') {
-			  		braces++;
-			  	} else if (md.charAt(i) == '}') {
-			  		braces--;
-			  	}
-			  	i++;
-			  }
-			  var json = JSON.parse(md.substring(0, i));
-			  console.log(json);
-			  md = md.substring(i);
-			  document.title = "Pantheon Wiki: " + json["title"];
-			  document.getElementById("title").innerHTML = json["title"];
-			  var converter = new showdown.Converter({noHeaderId: true, headerLevelStart: 2, simpleLineBreaks: true, parseImgDimensions: true});
-			  document.getElementById("text").innerHTML = converter.makeHtml(md);
-			  if ("sidebarHeader" in json) {
-				var sidebar = document.getElementById("sidebar");
-				sidebar.style.display = "block";
-				console.log(sidebar.firstChild);
-				sidebar.firstChild.innerHTML = json["sidebarHeader"];
-				var sidebarRowJSON = json["sidebarRows"];
-				for (var key in sidebarRowJSON) {
-					var sidebarRow = document.createElement("div");
-					sidebarRow.className = "sidebar_row";
-					var rowLeft = document.createElement("div");
-					rowLeft.className = "sidebar_row_left";
-					rowLeft.innerHTML = key;
-					var rowRight = document.createElement("div");
-					rowRight.className = "sidebar_row_right";
-					rowRight.innerHTML = Array.isArray(sidebarRowJSON[key]) ? sidebarRowJSON[key].join("<br/>") : sidebarRowJSON[key];
-					sidebarRow.appendChild(rowLeft);
-					sidebarRow.appendChild(rowRight);
-					sidebar.appendChild(sidebarRow);
+			function loadArticle() {
+				if (!new URL(window.location.href).searchParams.get('article')) {
+					window.location.href = "index.html?article=index";
+					return;
 				}
-			  }
+				var client = new XMLHttpRequest();
+				client.open('GET', getQueryStringValue("article") + ".md");
+				client.onreadystatechange = function() {
+				  if (client.readyState != XMLHttpRequest.DONE) {
+					return;
+				  }
+				  var md = client.responseText;
+				  // Find JSON payload in markdown.
+				  var i = 1;
+				  var braces = 1;
+				  while (braces > 0) {
+					if (md.charAt(i) == '{') {
+						braces++;
+					} else if (md.charAt(i) == '}') {
+						braces--;
+					}
+					i++;
+				  }
+				  var json = JSON.parse(md.substring(0, i));
+				  md = md.substring(i);
+				  document.title = "Pantheon Wiki: " + json["title"];
+				  document.getElementById("title").innerHTML = json["title"];
+				  
+				  if ("sidebarHeader" in json) {
+					var sidebar = document.getElementById("sidebar");
+					sidebar.style.display = "block";
+					sidebar.children[0].innerHTML = json["sidebarHeader"];
+					var sidebarRowJSON = json["sidebarRows"];
+					for (var key in sidebarRowJSON) {
+						var sidebarRow = document.createElement("div");
+						sidebarRow.className = "sidebar_row";
+						var rowLeft = document.createElement("div");
+						rowLeft.className = "sidebar_row_left";
+						rowLeft.innerHTML = key;
+						var rowRight = document.createElement("div");
+						rowRight.className = "sidebar_row_right";
+						rowRight.innerHTML = Array.isArray(sidebarRowJSON[key]) ? sidebarRowJSON[key].join("<br/>") : sidebarRowJSON[key];
+						sidebarRow.appendChild(rowLeft);
+						sidebarRow.appendChild(rowRight);
+						sidebar.appendChild(sidebarRow);
+					}
+				  }
+
+				  md = md.replace(/\[\[(.+)\]\]/g, '[$1](?article=$1)');
+				  var converter = new showdown.Converter({noHeaderId: true, headerLevelStart: 2, simpleLineBreaks: true, parseImgDimensions: true});
+				  document.getElementById("text").innerHTML = converter.makeHtml(md);
+				}
+				client.onerror = function() {
+				  window.location.href = "?article=index";
+				}
+				client.send();
 			}
-			client.onerror = function() {
-			  window.location.href = "?article=test";
-			}
-			client.send();
+			loadArticle();
 		</script>
 	</head>
 	<body>
