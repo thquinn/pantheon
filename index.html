@@ -6,10 +6,11 @@
 			@import url('https://fonts.googleapis.com/css2?family=Caladea:ital,wght@0,400;0,700;1,400&family=Calistoga&display=swap');
 			html {
 				font-family: 'Caladea', serif;
-				font-size: 16px;
+				font-size: 17px;
 			}
 			body { background-color: #222; }
 			p { text-indent: 40px; }
+			iframe { display: none; }
 			#wrapper { text-align: center; }
 			#contents {
 				display: inline-block;
@@ -17,7 +18,7 @@
 				text-align: left;
 				background-color: #EEE;
 				margin-top: 50px;
-				width: 800px;
+				width: 900px;
 				border-radius: 30px;
 				border-color: #444;
 				border-style: solid;
@@ -29,7 +30,7 @@
 				padding-bottom: 10px;
 			}
 			#text {
-				padding: 0 40px 0 40px;
+				padding: 0 30px 0 30px;
 			}
 			#sidebar {
 				display: none;
@@ -61,9 +62,54 @@
 				float: right;
 				text-align: right;
 			}
+			#god_table {
+				margin-left:auto; 
+				margin-right:auto;
+				background-color: #222;
+				color: #EEE;
+				font-size: 24px;
+				padding: 24px 12px 16px 16px;
+				border-radius: 6px;
+				border-color: #888;
+				border-style: solid;
+				border-width: 6px;
+			}
+			#god_table th {
+				writing-mode: vertical-rl;
+				vertical-align: baseline;
+				transform:scale(-1);
+				translate: -14px;
+			}
+			#god_table a {
+				color: #EEE;
+				text-decoration:none;
+			}
+			#god_table a:hover {
+				color: #BBB;
+			}
+			#god_table tr > td:first-child {
+				width: 200px;
+				text-align: right;
+				font-weight: bold;
+				padding-bottom: 4px;
+			}
+			#god_table td {
+				width: 32px;
+				height: 32px;
+				padding: 8px 14px 0px 0px;
+			}
+			#god_table td > img {
+				width: inherit;
+			}
+			.god_table_subtitle {
+				margin-top: -4px;
+				font-size: 12px;
+			}
 		</style>
 		<!-- Populate article -->
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+		<script type="text/javascript" src="csv.min.js"></script>
 		<script type="text/javascript">
 			function getQueryStringValue(key) {  
 			  return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));  
@@ -124,11 +170,75 @@
 				  // Render.
 				  var converter = new showdown.Converter({noHeaderId: true, headerLevelStart: 2, simpleLineBreaks: true, parseImgDimensions: true});
 				  document.getElementById("text").innerHTML = converter.makeHtml(md);
+				  insertSpecialElements();
 				}
 				client.onerror = function() {
 				  window.location.href = "?article=home";
 				}
 				client.send();
+			}
+			function insertSpecialElements() {
+				var omni = new URL(window.location.href).searchParams.get('omni') != null;
+				var godTable = document.getElementById("god_table");
+				if (godTable) {
+					CSV.fetch({
+						url: 'ticks/tick200.csv'
+					  }
+					).done(function(dataset) {
+						var godCount = 0;
+						while (godCount < dataset.records.length && dataset.records[godCount][1] != null) {
+							godCount++;
+						}
+						var header = godTable.createTHead();
+						var headerRow = header.insertRow();
+						for (var i = 0; i <= godCount; i++) {
+							var headerCell = document.createElement("th");
+							if (i > 0) {
+								var a = document.createElement("a");
+								a.innerHTML = dataset.records[i - 1][2];
+								a.href = "?article=" + dataset.records[i - 1][2];
+								headerCell.appendChild(a);
+							}
+							headerRow.appendChild(headerCell);
+						}
+						for (var i = 0; i < godCount; i++) {
+							var row = header.insertRow();
+							for (var j = 0; j <= godCount; j++) {
+								var cell = row.insertCell();
+								if (omni && dataset.records[i][j + 8].startsWith("#")) {
+									dataset.records[i][j + 8] = dataset.records[i][j + 8].substring(1);
+								}
+								if (j == 0) {
+									var a = document.createElement("a");
+									a.href = "?article=" + dataset.records[i][2];
+									a.innerHTML = dataset.records[i][2];
+									cell.appendChild(a);
+									var div = document.createElement("div");
+									div.className = "god_table_subtitle";
+									div.innerHTML = dataset.records[i][3];
+									cell.appendChild(div);
+								} else if (j == i + 1) {
+									var img = document.createElement("img");
+									img.src = "images/na.png";
+									cell.appendChild(img);
+								} else if (!dataset.records[i][j + 8].startsWith("#")) {
+									var value = parseFloat(dataset.records[i][j + 8]);
+									var filename = value > 0 ? "good" : "bad";
+									value = Math.floor(Math.abs(value) / .1);
+									value = Math.min(value, 4);
+									var img = document.createElement("img");
+									if (value == 0) {
+										img.src = "images/neutral.png";
+									} else {
+										console.log(value);
+										img.src = `images/${filename}${value}.png`;
+									}
+									cell.appendChild(img);
+								}
+							}
+						}
+					});
+				}
 			}
 			loadArticle();
 		</script>
@@ -137,11 +247,9 @@
 		<div id="wrapper">
 			<div id="contents">
 				<div id="sidebar">
-					<div id="sidebar_header">Sidebar Header</div>
+					<div id="sidebar_header"></div>
 				</div>
-				<div id="title">
-					Article Title
-				</div>
+				<div id="title"></div>
 				<div id="text"></div>
 			</div>
 		</div>

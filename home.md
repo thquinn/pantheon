@@ -1,4 +1,6 @@
 {
-	"title": "404"
+	"title": "Home"
 }
-You're not supposed to be here...
+You're not supposed to be here yet...
+
+<table id="god_table"></div>
