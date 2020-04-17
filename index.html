@@ -76,10 +76,12 @@
 				border-width: 6px;
 			}
 			#god_table th {
+				vertical-align: bottom;
+			}
+			#god_table th div {
 				writing-mode: vertical-rl;
-				vertical-align: baseline;
 				transform:scale(-1);
-				translate: -14px;
+				margin-bottom: 6px;
 			}
 			#god_table a {
 				color: #EEE;
@@ -115,12 +117,17 @@
 			  return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));  
 			}
 			function loadArticle() {
-				if (!new URL(window.location.href).searchParams.get('article')) {
+				var articleParam = getQueryStringValue("article");
+				if (articleParam) {
+					var lowerCase = articleParam.toLowerCase();
+					if (articleParam !== lowerCase) {
+						window.location.href = "index.html?article=" + lowerCase;
+					}
+				} else {
 					window.location.href = "index.html?article=home";
-					return;
 				}
 				var client = new XMLHttpRequest();
-				client.open('GET', getQueryStringValue("article") + ".md");
+				client.open('GET', articleParam + ".md");
 				client.onload = function() {
 				  var md = client.responseText;
 				  // Find JSON payload in markdown.
@@ -190,11 +197,14 @@
 						var headerRow = header.insertRow();
 						for (var i = 0; i <= godCount; i++) {
 							var headerCell = document.createElement("th");
+							
 							if (i > 0) {
+								var headerDiv = document.createElement("div");
 								var a = document.createElement("a");
 								a.innerHTML = dataset.records[i - 1][2];
 								a.href = "?article=" + dataset.records[i - 1][2];
-								headerCell.appendChild(a);
+								headerCell.appendChild(headerDiv);
+								headerDiv.appendChild(a);
 							}
 							headerRow.appendChild(headerCell);
 						}
