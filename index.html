@@ -55,6 +55,7 @@
 				margin-bottom: 5px;
 			}
 			.sidebar_row_left {
+				position: absolute;
 				float: left;
 				font-weight: bold;
 			}
@@ -95,8 +96,7 @@
 			}
 			#god_table td {
 				width: 32px;
-				height: 32px;
-				padding: 8px 14px 0px 0px;
+				padding: 4px 14px 0px 0px;
 			}
 			#god_table td > img {
 				width: inherit;
@@ -121,10 +121,7 @@
 				}
 				var client = new XMLHttpRequest();
 				client.open('GET', getQueryStringValue("article") + ".md");
-				client.onreadystatechange = function() {
-				  if (client.readyState != XMLHttpRequest.DONE) {
-					return;
-				  }
+				client.onload = function() {
 				  var md = client.responseText;
 				  // Find JSON payload in markdown.
 				  var i = 1;
@@ -224,13 +221,15 @@
 								} else if (!dataset.records[i][j + 8].startsWith("#")) {
 									var value = parseFloat(dataset.records[i][j + 8]);
 									var filename = value > 0 ? "good" : "bad";
-									value = Math.floor(Math.abs(value) / .1);
+									console.log(value);
+									value = Math.floor((Math.abs(value) + .01) / .1);
 									value = Math.min(value, 4);
+									console.log(value);
+									console.log();
 									var img = document.createElement("img");
 									if (value == 0) {
 										img.src = "images/neutral.png";
 									} else {
-										console.log(value);
 										img.src = `images/${filename}${value}.png`;
 									}
 									cell.appendChild(img);
