@@ -6,7 +6,7 @@
 		"Also known as": "...",
 		"Pawns": "...",
 		"Gender": "male",
-		"Pistonym": "...",
+		"Pistonym": "Vicune",
 		"Divine Number": 25
 	}
 }

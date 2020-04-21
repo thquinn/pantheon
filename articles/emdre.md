@@ -6,7 +6,7 @@
 		"Also known as": "...",
 		"Pawns": "...",
 		"Gender": "female",
-		"Pistonym": "...",
+		"Pistonym": "Emdrite",
 		"Divine Number": 23
 	}
 }

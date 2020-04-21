@@ -127,7 +127,7 @@
 					window.location.href = "index.html?article=home";
 				}
 				var client = new XMLHttpRequest();
-				client.open('GET', articleParam + ".md");
+				client.open('GET', `articles/${articleParam}.md`);
 				client.onload = function() {
 				  var md = client.responseText;
 				  // Find JSON payload in markdown.
@@ -143,7 +143,7 @@
 				  }
 				  var json = JSON.parse(md.substring(0, i));
 				  md = md.substring(i);
-				  document.title = "Pantheon Wiki: " + json["title"];
+				  document.title = json["title"] == "Pantheon" ? "Pantheon Wiki" : "Pantheon Wiki: " + json["title"];
 				  document.getElementById("title").innerHTML = json["title"];
 				  // Form the sidebar, if needed.
 				  if ("sidebarHeader" in json) {
@@ -159,7 +159,11 @@
 						rowLeft.innerHTML = key;
 						var rowRight = document.createElement("div");
 						rowRight.className = "sidebar_row_right";
-						rowRight.innerHTML = Array.isArray(sidebarRowJSON[key]) ? sidebarRowJSON[key].join("<br/>") : sidebarRowJSON[key];
+						var value = sidebarRowJSON[key];
+						if (value == "" || (Array.isArray(value) && value.length == 0)) {
+							value = "<br/>";
+						}
+						rowRight.innerHTML = Array.isArray(value) ? value.join("<br/>") : value;
 						sidebarRow.appendChild(rowLeft);
 						sidebarRow.appendChild(rowRight);
 						sidebar.appendChild(sidebarRow);
