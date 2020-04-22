@@ -63,6 +63,13 @@
 				float: right;
 				text-align: right;
 			}
+			#icon {
+				display: none;
+				position: absolute;
+				width: 200px;
+				height: 200px;
+				z-index: -1;
+			}
 			#god_table {
 				margin-left:auto; 
 				margin-right:auto;
@@ -123,9 +130,11 @@
 					if (articleParam !== lowerCase) {
 						window.location.href = "index.html?article=" + lowerCase;
 					}
+					document.getElementById("icon").src = `icons/${lowerCase}.png`;
 				} else {
 					window.location.href = "index.html?article=home";
 				}
+				
 				var client = new XMLHttpRequest();
 				client.open('GET', `articles/${articleParam}.md`);
 				client.onload = function() {
@@ -253,14 +262,17 @@
 					});
 				}
 			}
-			loadArticle();
+			window.onload = function() {
+			  loadArticle();
+			};
 		</script>
 	</head>
 	<body>
 		<div id="wrapper">
+			<img id="icon" onload="this.style.display='inline'" />
 			<div id="contents">
 				<div id="sidebar">
-					<div id="sidebar_header"></div>
+					<div id="sidebar_header" ></div>
 				</div>
 				<div id="title"></div>
 				<div id="text"></div>

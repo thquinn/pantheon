@@ -7,7 +7,8 @@
 		"Pawns": "sharplings",
 		"Gender": "female",
 		"Pistonym": "Tivic",
-		"Divine Number": 37
+		"Divine Number": 37,
+		"Pronunciation": "\"TIV-ee-ul\""
 	}
 }
 

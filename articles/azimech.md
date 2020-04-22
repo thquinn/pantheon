@@ -15,7 +15,7 @@ The arc of **Azimech, God of Propagation** as he pertains to humanity is an unfo
 
 But fickle is the favor of man. As the ages passed, we became secure in our primacy, and the auspices of our divine parent became, we thought, a hindrance. The name of Azimech began to take on new meanings, ones of increasing concern to mankind's burgeoning population: plague, infestation, and rumormongering. The choice was not his; as a god must, he took on this new mantle, and the lies became truth.
 
-Today, when the swaddling of a newborn babe turns to silk overnight, it is an occasion to be mourned. While those born under Azimech aren't exactly pariahs, they are thought to be somewhat separate from other people. They tend to be leaders, though of whom is the subject of some negative stereotype. Some are quite reclusive, perhaps taking a spouse and starting families far out into the world. Some Azemics even go against type, becoming doctors and farmers and using their knowledge of pestilence to keep it at bay; perhaps they seek to restore Azimech's good name, and remind us of who he once was.
+Today, when the swaddling of a newborn babe turns to silk overnight, it is an occasion to be mourned. While those born under Azimech aren't exactly pariahs, they are thought to be somewhat separate from other people. They tend to be leaders, though of whom is the subject of negative stereotype. Some are quite reclusive, perhaps taking a spouse and starting families far out into the world. Some Azemics even go against type, becoming doctors and farmers and using their knowledge of pestilence to keep it at bay. Perhaps they seek to restore Azimech's good name, and remind us of who he once was.
 
 # Pawns
 
