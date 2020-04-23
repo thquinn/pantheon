@@ -12,7 +12,7 @@
 	}
 }
 
-One of very few gods known to kill humans without warning.
+One of very few gods known to kill humans without warning. Views them as lesser beings useful for experimentation.
 
 # Pawns
 
