@@ -7,6 +7,7 @@
 		"Pawns": "...",
 		"Gender": "female",
 		"Pistonym": "Emdrite",
-		"Divine Number": 23
+		"Divine Number": 23,
+		"Pronunciation": "EMD-ʁ"
 	}
 }

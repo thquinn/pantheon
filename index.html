@@ -10,6 +10,12 @@
 			}
 			body { background-color: #222; }
 			p { text-indent: 40px; }
+			sup, sub {
+			  vertical-align: baseline;
+			  position: relative;
+			  top: -0.4em;
+			}
+			sub { top: 0.4em; }
 			iframe { display: none; }
 			#wrapper { text-align: center; }
 			#contents {
@@ -63,11 +69,15 @@
 				float: right;
 				text-align: right;
 			}
+			#logo {
+				position: absolute;
+				width: 350px;
+				transform: translate(601px, -20px);
+			}
 			#icon {
 				display: none;
 				position: absolute;
 				width: 400px;
-				height: 400px;
 				z-index: -1;
 				transform: translate(-300px, 60px) rotate(-20deg);
 				filter: invert(26%);
@@ -128,11 +138,8 @@
 			function loadArticle() {
 				var articleParam = getQueryStringValue("article");
 				if (articleParam) {
-					var lowerCase = articleParam.toLowerCase();
-					if (articleParam !== lowerCase) {
-						window.location.href = "index.html?article=" + lowerCase;
-					}
-					document.getElementById("icon").src = `icons/${lowerCase}.png`;
+					articleParam = articleParam.toLowerCase();
+					document.getElementById("icon").src = `icons/${articleParam}.png`;
 				} else {
 					window.location.href = "index.html?article=home";
 				}
@@ -141,45 +148,7 @@
 				client.open('GET', `articles/${articleParam}.md`);
 				client.onload = function() {
 				  var md = client.responseText;
-				  // Find JSON payload in markdown.
-				  var i = 1;
-				  var braces = 1;
-				  while (braces > 0) {
-					if (md.charAt(i) == '{') {
-						braces++;
-					} else if (md.charAt(i) == '}') {
-						braces--;
-					}
-					i++;
-				  }
-				  var json = JSON.parse(md.substring(0, i));
-				  md = md.substring(i);
-				  document.title = json["title"] == "Pantheon" ? "Pantheon Wiki" : "Pantheon Wiki: " + json["title"];
-				  document.getElementById("title").innerHTML = json["title"];
-				  // Form the sidebar, if needed.
-				  if ("sidebarHeader" in json) {
-					var sidebar = document.getElementById("sidebar");
-					sidebar.style.display = "block";
-					sidebar.children[0].innerHTML = json["sidebarHeader"];
-					var sidebarRowJSON = json["sidebarRows"];
-					for (var key in sidebarRowJSON) {
-						var sidebarRow = document.createElement("div");
-						sidebarRow.className = "sidebar_row";
-						var rowLeft = document.createElement("div");
-						rowLeft.className = "sidebar_row_left";
-						rowLeft.innerHTML = key;
-						var rowRight = document.createElement("div");
-						rowRight.className = "sidebar_row_right";
-						var value = sidebarRowJSON[key];
-						if (value == "" || (Array.isArray(value) && value.length == 0)) {
-							value = "<br/>";
-						}
-						rowRight.innerHTML = Array.isArray(value) ? value.join("<br/>") : value;
-						sidebarRow.appendChild(rowLeft);
-						sidebarRow.appendChild(rowRight);
-						sidebar.appendChild(sidebarRow);
-					}
-				  }
+				  md = parseJSONPayload(md);
 				  // Format to pure markdown and render.
 				  // Wikilinks.
 				  md = md.replace(/(\[\[.+\]\])/g, function(match) {
@@ -195,6 +164,51 @@
 				  window.location.href = "?article=home";
 				}
 				client.send();
+			}
+			function parseJSONPayload(md) {
+			  // Find JSON payload in markdown.
+			  if (md.charAt(0) != '{') {
+				return md;
+			  }
+			  var i = 1;
+			  var braces = 1;
+			  while (braces > 0) {
+				if (md.charAt(i) == '{') {
+					braces++;
+				} else if (md.charAt(i) == '}') {
+					braces--;
+				}
+				i++;
+			  }
+			  var json = JSON.parse(md.substring(0, i));
+			  md = md.substring(i);
+			  document.title = json["title"] == "Pantheon" ? "Pantheon Wiki" : "Pantheon Wiki: " + json["title"];
+			  document.getElementById("title").innerHTML = json["title"];
+			  // Form the sidebar, if needed.
+			  if ("sidebarHeader" in json) {
+				var sidebar = document.getElementById("sidebar");
+				sidebar.style.display = "block";
+				sidebar.children[0].innerHTML = json["sidebarHeader"];
+				var sidebarRowJSON = json["sidebarRows"];
+				for (var key in sidebarRowJSON) {
+					var sidebarRow = document.createElement("div");
+					sidebarRow.className = "sidebar_row";
+					var rowLeft = document.createElement("div");
+					rowLeft.className = "sidebar_row_left";
+					rowLeft.innerHTML = key;
+					var rowRight = document.createElement("div");
+					rowRight.className = "sidebar_row_right";
+					var value = sidebarRowJSON[key];
+					if (value == "" || (Array.isArray(value) && value.length == 0)) {
+						value = "<br/>";
+					}
+					rowRight.innerHTML = Array.isArray(value) ? value.join("<br/>") : value;
+					sidebarRow.appendChild(rowLeft);
+					sidebarRow.appendChild(rowRight);
+					sidebar.appendChild(sidebarRow);
+				}
+			  }
+			  return md;
 			}
 			function insertSpecialElements() {
 				var omni = new URL(window.location.href).searchParams.get('omni') != null;
@@ -246,11 +260,8 @@
 								} else if (!dataset.records[i][j + 8].startsWith("#")) {
 									var value = parseFloat(dataset.records[i][j + 8]);
 									var filename = value > 0 ? "good" : "bad";
-									console.log(value);
 									value = Math.floor((Math.abs(value) + .01) / .1);
 									value = Math.min(value, 4);
-									console.log(value);
-									console.log();
 									var img = document.createElement("img");
 									if (value == 0) {
 										img.src = "images/neutral.png";
@@ -271,6 +282,7 @@
 	</head>
 	<body>
 		<div id="wrapper">
+			<a href="index.html"><img id="logo" src="images/logo.png" /></a>
 			<img id="icon" onload="this.style.display='inline'" />
 			<div id="contents">
 				<div id="sidebar">
