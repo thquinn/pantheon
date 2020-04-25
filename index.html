@@ -20,7 +20,7 @@
 			#wrapper { text-align: center; }
 			#contents {
 				display: inline-block;
-				padding: 30px 40px 20px 40px;
+				padding: 26px 40px 20px 40px;
 				text-align: left;
 				background-color: #FFFC;
 				margin-top: 50px;
@@ -72,7 +72,7 @@
 			#logo {
 				position: absolute;
 				width: 350px;
-				transform: translate(601px, -20px);
+				transform: translate(601px, 10px);
 			}
 			#icon {
 				display: none;
@@ -88,7 +88,7 @@
 				background-color: #222;
 				color: #EEE;
 				font-size: 24px;
-				padding: 24px 12px 16px 16px;
+				padding: 20px 10px 16px 16px;
 				border-radius: 6px;
 				border-color: #888;
 				border-style: solid;
@@ -143,6 +143,9 @@
 				} else {
 					window.location.href = "index.html?article=home";
 				}
+				if (articleParam == "home") {
+					document.getElementById("logo").parentElement.removeAttribute("href");
+				}
 				
 				var client = new XMLHttpRequest();
 				client.open('GET', `articles/${articleParam}.md`);
@@ -151,9 +154,16 @@
 				  md = parseJSONPayload(md);
 				  // Format to pure markdown and render.
 				  // Wikilinks.
-				  md = md.replace(/(\[\[.+\]\])/g, function(match) {
+				  md = md.replace(/\[\[[^\|]+\|[^\|]+\]\]/g, function(match) {
+					match = match.substring(2, match.length - 2);
+					var barIndex = match.indexOf('|');
+					var article = match.substring(0, barIndex);
+					var label = match.substring(barIndex + 1);
+					return `[${label}](?article=${article.toLowerCase().replace(/ /g,"_")})`;
+				  });
+				  md = md.replace(/\[\[.+\]\]/g, function(match) {
 					var article = match.substring(2, match.length - 2);
-					return `[${article}](?article=${article.toLowerCase()})`;
+					return `[${article}](?article=${article.toLowerCase().replace(/ /g,"_")})`;
 				  });
 				  // Render.
 				  var converter = new showdown.Converter({noHeaderId: true, headerLevelStart: 2, simpleLineBreaks: true, parseImgDimensions: true});
@@ -231,7 +241,7 @@
 								var headerDiv = document.createElement("div");
 								var a = document.createElement("a");
 								a.innerHTML = dataset.records[i - 1][2];
-								a.href = "?article=" + dataset.records[i - 1][2];
+								a.href = "?article=" + dataset.records[i - 1][2].toLowerCase();
 								headerCell.appendChild(headerDiv);
 								headerDiv.appendChild(a);
 							}
@@ -246,7 +256,7 @@
 								}
 								if (j == 0) {
 									var a = document.createElement("a");
-									a.href = "?article=" + dataset.records[i][2];
+									a.href = "?article=" + dataset.records[i][2].toLowerCase();
 									a.innerHTML = dataset.records[i][2];
 									cell.appendChild(a);
 									var div = document.createElement("div");

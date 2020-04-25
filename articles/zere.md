@@ -16,7 +16,7 @@ To **Zere, Goddess of Poison**, we humans are less than insects. Insects have de
 
 It may seem illogical, then, that any humans are born under her auspices at all. The Aezere are relatively few, to be sure, but not to the point of rarity. They are a strange and self-loathing bunch, often seeking to enhance themselves physically and mentally, or even to remake themselves in another image entirely. They reject the pity that is heaped upon them by children of more sympathetic gods. Those that find a place in society are stereotypically guides, botanists, apothecaries, and warriors.
 
-The Aezere warrior is an intimidating foe that most hope to never find themselves up against. Not only is she likely to be a paragon of fitness and cunning, but she has natural resistances to several ploys that one might use to try to even the odds: the physical, like pressure points; the chemical, like toxins and narcotics; and the psychological, like fear. Despite these unnatural advantages, they are not universally disliked — no one hates Aezeres as much as they hate themselves.
+The Aezere warrior is an intimidating foe that most hope to never find themselves up against. Not only is she likely to be a paragon of fitness and cunning, but she has natural resistances to several ploys that one might use to try to even the odds: the physical, like pressure points; the chemical, like toxins and narcotics; and the psychological, like fear. Despite these unnatural advantages, they are not universally disliked — and no one hates Aezeres as much as they hate themselves.
 
 # Pawns
 

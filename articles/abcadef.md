@@ -11,7 +11,7 @@
 	}
 }
 
-According to popular belief (and common sense), **Abcadef, God of Language** came into being alongside humanity and the needs of the new species. As a god of human abstraction, they represent both language and the myriad ends which it serves in society. Those born under Abcadef stereotypically grow up to be novelists, journalists, philosophers, linguists, and translators.
+According to popular belief (and common sense), **Abcadef, God of Language** came into being alongside humanity to meet the needs of the new species. As a god of human abstraction, they represent both language and the myriad ends which it serves in society. Those born under Abcadef stereotypically grow up to be novelists, journalists, philosophers, linguists, and translators.
 
 It's not clear how there came to be quite so many languages: did they arise naturally or was it the god's will? No matter the cause, the result is that Abcadef is sometimes thought of as a being cut off from itself, a god without unified purpose that perhaps doesn't always have humanity's best interests at heart.
 
