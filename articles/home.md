@@ -8,7 +8,7 @@ In **Pantheon**, every action you take will fall under the purview of one or mor
 
 # The Scenario
 
-On the island village of Nuray, the tradition of *pursuance* dictates that when children become adults, they must go out and make their mark upon the world. To facilitate this, they are placed into *cliques* of their peers — no two of which may share a birth god — and temporarily exiled from their homes. At the beginning of our campaign, the members of the party constitute one such clique, newly formed and about to begin their journey, like it or not.
+On the island village of [[Nuray]], the tradition of *pursuance* dictates that when children become adults, they must go out and make their mark upon the world. To facilitate this, they are placed into *cliques* of their peers — no two of which may share a birth god — and temporarily exiled from their homes. At the beginning of our campaign, the members of the party constitute one such clique, newly formed and about to begin their journey, like it or not.
 
 Nuray being an isolated place, many of the gods are unknown to its people. (And its people unknown to many of the gods!) A random set of eight gods has been chosen as your starting pantheon. As you play, you will learn of more, forging connections with some and making enemies of others. Here's what we've got:
 
