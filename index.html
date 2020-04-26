@@ -10,6 +10,7 @@
 			}
 			body { background-color: #222; }
 			p { text-indent: 40px; }
+			table { margin-top: 24px; margin-bottom: 24px; }
 			sup, sub {
 			  vertical-align: baseline;
 			  position: relative;
@@ -119,8 +120,13 @@
 				width: 32px;
 				padding: 4px 14px 0px 0px;
 			}
-			#god_table td > img {
+			#god_table td:not(:first-child) > img {
 				width: inherit;
+			}
+			.god_table_trend {
+				width: 30px;
+				float: left;
+				margin-top: 6px;
 			}
 			.god_table_subtitle {
 				margin-top: -4px;
@@ -255,6 +261,17 @@
 									dataset.records[i][j + 8] = dataset.records[i][j + 8].substring(1);
 								}
 								if (j == 0) {
+									var momentum = parseFloat(dataset.records[i][6]);
+									var img = document.createElement("img");
+									if (momentum < -.25) {
+										img.src = "images/trend_bad.png";
+									} else if (momentum <= .25) {
+										img.src = "images/trend_neutral.png";
+									} else {
+										img.src = "images/trend_good.png";
+									}
+									img.className = "god_table_trend";
+									cell.appendChild(img);
 									var a = document.createElement("a");
 									a.href = "?article=" + dataset.records[i][2].toLowerCase();
 									a.innerHTML = dataset.records[i][2];
