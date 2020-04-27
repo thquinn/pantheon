@@ -24,7 +24,8 @@
 				padding: 26px 40px 20px 40px;
 				text-align: left;
 				background-color: rgba(255, 255, 255, 0.75);
-				margin-top: 50px;
+				margin-top: 48px;
+				margin-bottom: 24px;
 				width: 900px;
 				border-radius: 30px;
 				border-color: #444;
@@ -132,9 +133,14 @@
 				margin-top: -4px;
 				font-size: 12px;
 			}
+			#world_map {
+				width: auto;
+				height: 600px;
+			}
 		</style>
 		<!-- Populate article -->
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.1/openseadragon.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
 		<script type="text/javascript" src="csv.min.js"></script>
 		<script type="text/javascript">
@@ -299,6 +305,19 @@
 								}
 							}
 						}
+					});
+				}
+				var worldMap = document.getElementById("world_map");
+				if (worldMap) {
+					var viewer = OpenSeadragon({
+					  id: "world_map",
+					  tileSources: {
+						type: 'image',
+						url:  'images/beledh.png'
+					  },
+					  showNavigationControl: false,
+					  defaultZoomLevel: 0,
+					  springStiffness: 25
 					});
 				}
 			}

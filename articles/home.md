@@ -2,6 +2,8 @@
 
 <table id="god_table"></table>
 
+<div id="world_map"></div>
+
 The world of Beledh is governed by gods. Hundreds of gods. A god for everything, for every concept natural and artificial, every aspect of existence human or otherwise, and every child of Beledh is born under the auspices of one of those gods. No one knows why, or how the choice is made, but from the moment their characteristic omen manifests, one's birth god is an inescapable part of one's identity. Most — but not all — ultimately decide to follow the path laid out for them, and seek to embody the qualities held most highly by their divine benefactor.
 
 # The Rules (in brief)
