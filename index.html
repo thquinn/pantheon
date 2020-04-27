@@ -312,13 +312,11 @@
 				if (worldMap) {
 					var viewer = OpenSeadragon({
 					  id: "world_map",
-					  tileSources: {
-						type: 'image',
-						url:  'images/beledh.png'
-					  },
+					  tileSources: "images/beledh/dzc_output_images/beledh.xml",
 					  showNavigationControl: false,
 					  defaultZoomLevel: 0,
-					  springStiffness: 25
+					  springStiffness: 20,
+					  zoomPerScroll: 2,
 					});
 				}
 			}
