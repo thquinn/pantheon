@@ -19,7 +19,7 @@ Of Oroz's pawns, humans certainly get the most use out of the **parrals**. They 
 
 * more fragile than a well-bred horse,
 * less able to carry heavy loads and perform farm labor,
-* slower over long distances,
+* slower over long distances and during the night,
 * more prone to spooking,
 * more willful,
 * and that's not to mention the thorns.
@@ -28,7 +28,7 @@ Some experienced riders do prefer them, however, as they:
 
 * are more intelligent than horses, understanding a not-insignificant percentage of spoken language,
 * possess a supernatural ability to sense danger,
-* are faster and nimbler over short distances,
+* are faster and nimbler over short distances and during the day,
 * require less food and water, reportedly supplementing the former with photosynthesis,
 * can be regrown (with great difficulty) from their component parts, and
 * can use their aforementioned thorns defensively, making them unattractive targets.
