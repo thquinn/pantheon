@@ -3,7 +3,7 @@
 	"sidebarHeader": "God of Propagation",
 	"sidebarRows": {
 		"Associated with": [ "proliferation", "insects", "vermin", "disease", "transmission", "expansion", "migration", "the spread of species and ideas" ],
-		"Also known as": [ "He of Whispering Wing", "the Seventh of Six", "the God of Moths" ],
+		"Also known as": [ "He of Whispering Wing", "the Seventh of Six", "the God of Moths", "the Horizon Seeker" ],
 		"Pawns": [ "fraejens", "guidemoths" ],
 		"Gender": "male",
 		"Pistonym": "Azemic",

@@ -2,7 +2,7 @@
 	"title": "Vicunius",
 	"sidebarHeader": "God of Apathy",
 	"sidebarRows": {
-		"Associated with": [ "sloth", "rest and recuperation", "inertia", "impartiality", "folly", "waste", "thoughtlessness", "serenity", "acceptance" ],
+		"Associated with": [ "sloth", "rest and recuperation", "inertia", "impartiality", "folly", "boredom", "waste", "thoughtlessness", "serenity", "acceptance" ],
 		"Also known as": [ "the Visitor God", "Bel Chevelar" ],
 		"Pawns": "unknown",
 		"Gender": "male",

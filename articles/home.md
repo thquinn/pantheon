@@ -1,5 +1,3 @@
-# Welcome to Pantheon.
-
 <table id="god_table"></table>
 
 <div id="world_map"></div>
