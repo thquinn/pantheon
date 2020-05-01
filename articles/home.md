@@ -1,4 +1,5 @@
 <table id="god_table"></table>
+<div id="other_gods"></div>
 
 <div id="world_map"></div>
 

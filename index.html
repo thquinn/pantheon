@@ -134,6 +134,18 @@
 				margin-top: -4px;
 				font-size: 12px;
 			}
+			#other_gods {
+				margin-bottom: 24px;
+				text-align: center;
+			}
+			#other_gods a {
+				color: #222;
+				text-decoration:none;
+				font-weight: bold;
+			}
+			#other_gods a:hover {
+				color: #666;
+			}
 			#world_map {
 				width: auto;
 				height: 600px;
@@ -168,7 +180,8 @@
 				  md = parseJSONPayload(md);
 				  // Format to pure markdown and render.
 				  // Wikilinks.
-				  md = md.replace(/\[\[[^\|]+\|[^\|]+\]\]/g, function(match) {
+				  md = md.replace(/\[\[[^\|]+\|[^\]]+\]\]/g, function(match) {
+					console.log(match);
 					match = match.substring(2, match.length - 2);
 					var barIndex = match.indexOf('|');
 					var article = match.substring(0, barIndex);
@@ -242,9 +255,23 @@
 						url: 'ticks/tick201.csv'
 					  }
 					).done(function(dataset) {
+						var otherGods = document.getElementById("other_gods");
 						var godCount = 0;
-						while (godCount < dataset.records.length && dataset.records[godCount][1] != null) {
-							godCount++;
+						for (var i = 0; i < dataset.records.length; i++) {
+							if (dataset.records[i][1] == "X") {
+								godCount++;
+							} else if (otherGods && dataset.records[i][1] == "/") {
+								if (otherGods.childElementCount == 0) {
+									otherGods.appendChild(document.createTextNode("Other Known Gods: "));
+								} else {
+									otherGods.appendChild(document.createTextNode(" · "));
+								}
+								var otherGodLink = document.createElement("a");
+								otherGodLink.innerHTML = dataset.records[i][2];
+								otherGodLink.href = `?article=${dataset.records[i][2].toLowerCase()}`;
+								otherGodLink.className = "other_god";
+								otherGods.appendChild(otherGodLink);
+							}
 						}
 						var header = godTable.createTHead();
 						var headerRow = header.insertRow();
