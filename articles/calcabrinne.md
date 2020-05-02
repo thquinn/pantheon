@@ -11,4 +11,4 @@
 	}
 }
 
-**Calcabrinne** is the **Goddess of Color** and the sister of [[Onimod]].
+**Calcabrinne** is the **Goddess of Color**.

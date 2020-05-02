@@ -7,7 +7,8 @@
 		"Pawns": "???",
 		"Gender": "female",
 		"Pistonym": "???",
-		"Divine Number": 49
+		"Divine Number": 49,
+		"Pronunciation": "ON-uh-mod"
 	}
 }
 
