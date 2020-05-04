@@ -6,7 +6,7 @@
 		"Also known as": "???",
 		"Pawns": "???",
 		"Gender": "female",
-		"Pistonym": "???",
+		"Pistonym": "Narasque",
 		"Divine Number": 18,
 		"Pronunciation": "nah-RAHM"
 	}

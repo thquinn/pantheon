@@ -252,7 +252,7 @@
 				var godTable = document.getElementById("god_table");
 				if (godTable) {
 					CSV.fetch({
-						url: 'ticks/tick201.csv'
+						url: 'ticks/tick202.csv'
 					  }
 					).done(function(dataset) {
 						var otherGods = document.getElementById("other_gods");
@@ -262,7 +262,7 @@
 								godCount++;
 							} else if (otherGods && dataset.records[i][1] == "/") {
 								if (otherGods.childElementCount == 0) {
-									otherGods.appendChild(document.createTextNode("Other Known Gods: "));
+									otherGods.appendChild(document.createTextNode("other known gods: "));
 								} else {
 									otherGods.appendChild(document.createTextNode(" · "));
 								}

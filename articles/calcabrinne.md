@@ -6,7 +6,7 @@
 		"Also known as": "???",
 		"Pawns": "???",
 		"Gender": "female",
-		"Pistonym": "???",
+		"Pistonym": "Calcabrian",
 		"Divine Number": 50
 	}
 }
