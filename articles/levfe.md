@@ -3,7 +3,7 @@
 	"sidebarHeader": "God of Glass",
 	"sidebarRows": {
 		"Associated with": [ "transparency", "clarity", "insight", "optics", "fragility", "fine tools", "sand", "sharpness" ],
-		"Also known as": "???",
+		"Also known as": [ "the Unthawed King" ],
 		"Pawns": "???",
 		"Gender": "male",
 		"Pistonym": "Levfiat",
