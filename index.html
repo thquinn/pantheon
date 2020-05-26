@@ -122,7 +122,10 @@
 				width: 32px;
 				padding: 4px 14px 0px 0px;
 			}
-			#god_table td:not(:first-child) > img {
+			#god_table td:not(:first-child) > a {
+				width: 32px;
+			}
+			#god_table td:not(:first-child) img {
 				width: inherit;
 			}
 			.god_table_trend {
@@ -295,6 +298,7 @@
 								if (omni && dataset.records[i][j + 8].startsWith("#")) {
 									dataset.records[i][j + 8] = dataset.records[i][j + 8].substring(1);
 								}
+								var godName1 = dataset.records[i][2].toLowerCase().replace(/ /g,"_");
 								if (j == 0) {
 									var momentum = parseFloat(dataset.records[i][6]);
 									var img = document.createElement("img");
@@ -324,13 +328,18 @@
 									var filename = value > 0 ? "good" : "bad";
 									value = Math.floor((Math.abs(value) + .01) / .1);
 									value = Math.min(value, 4);
+									var godName2 = dataset.records[j - 1][2].toLowerCase().replace(/ /g,"_");
+									var godCombo = godName1 < godName2 ? godName1 + "_" + godName2 : godName2 + "_" + godName1;
+									var imgA = document.createElement("a");
+									imgA.href = "?article=" + godCombo;
 									var img = document.createElement("img");
 									if (value == 0) {
 										img.src = "images/neutral.png";
 									} else {
 										img.src = `images/${filename}${value}.png`;
 									}
-									cell.appendChild(img);
+									imgA.append(img);
+									cell.appendChild(imgA);
 								}
 							}
 						}
