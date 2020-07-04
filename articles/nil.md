@@ -6,7 +6,7 @@
 		"Also known as": "???",
 		"Pawns": "???",
 		"Gender": "female",
-		"Pistonym": "Nilla",
+		"Pistonym": "Nil",
 		"Divine Number": 13
 	}
 }
