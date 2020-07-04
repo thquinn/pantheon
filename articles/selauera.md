@@ -7,6 +7,7 @@
 		"Pawns": "???",
 		"Gender": "female",
 		"Pistonym": "Selau",
+		"Pronunciation": "\"sel-lao-WHERE-uh\"",
 		"Divine Number": 39
 	}
 }
