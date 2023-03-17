@@ -12,7 +12,7 @@
 	}
 }
 
-"Born in flight, ne'er to alight": so goes the *aition* of **Tiveal, Goddess of Flight**. Is it goes, she has supposedly never touched the ground, and the claim has merit: recorded sightings of her typically mention an immense blur across the sky that quickly vanishes, leaving something changed in its wake. More rarely, dedicated adherents have been whisked away for revelatory journeys through the sky. Tiveal is known for being rather unsubtle when measured against other gods, intervening more directly where others might influence their children to act, or simply send pawns to do their dirty work.
+"Born in flight, ne'er alight": so goes the *aition* of **Tiveal, Goddess of Flight**. As it goes, she has supposedly never touched the ground, and the claim has merit: recorded sightings of her typically mention an immense blur across the sky that quickly vanishes, leaving something changed in its wake. More rarely, dedicated adherents have been whisked away for revelatory journeys through the sky. Tiveal is known for being rather unsubtle when measured against other gods, intervening more directly where others might influence their children to act, or simply send pawns to do their dirty work.
 
 And really, her work could hardly be called "dirty." As far as theologians can tell, much of her time is spent personally orchestrating the migrations of various birds. She has a well understood (but nevertheless unpredictable) habit of fixating for a season on a particular species of rare bird and fiercely protecting its individuals and habitats. Those who depend on hunting to survive eagerly seek out fresh news of Tiveal's earthly actions in hopes of avoiding her ire.
 
